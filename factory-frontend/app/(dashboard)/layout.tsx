@@ -4,7 +4,8 @@ import {
   Users,
   PanelLeft,
   Settings,
-  Package
+  Package,
+  Factory
 } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -62,6 +63,10 @@ function DesktopNav() {
           <Package className="h-5 w-5" />
         </NavItem>
 
+        <NavItem href="/production-orders" label="Órdenes de Producción">
+          <Factory className="h-5 w-5" />
+        </NavItem>
+
         <NavItem href="/users" label="Usuarios">
           <Users className="h-5 w-5" />
         </NavItem>
@@ -99,6 +104,13 @@ function MobileNav() {
           >
             <Package className="h-5 w-5" />
             Items Internos
+          </Link>
+          <Link
+            href="/production-orders"
+            className="flex items-center gap-4 px-2.5 text-muted-foreground hover:text-foreground"
+          >
+            <Factory className="h-5 w-5" />
+            Órdenes de Producción
           </Link>
           <Link
             href="/users"

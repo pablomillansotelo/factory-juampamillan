@@ -194,3 +194,60 @@ export const attributesApi = {
   },
 };
 
+// ==================== PRODUCTION ORDERS ====================
+
+export type ProductionOrderStatus = 'pending' | 'approved' | 'in_production' | 'completed' | 'cancelled';
+
+export interface ProductionOrder {
+  id: number;
+  vendorOrderId: number;
+  internalItemId: number;
+  quantity: number;
+  priority: number;
+  status: ProductionOrderStatus;
+  notes?: string | null;
+  estimatedCompletionDate?: string | Date | null;
+  createdAt: string | Date;
+  updatedAt: string | Date;
+  internalItem?: InternalItem;
+}
+
+export interface UpdateProductionOrderInput {
+  status?: ProductionOrderStatus;
+  notes?: string;
+  estimatedCompletionDate?: string;
+}
+
+export interface ProductionOrderFilters {
+  vendorOrderId?: number;
+  status?: ProductionOrderStatus;
+}
+
+export const productionOrdersApi = {
+  getAll: async (filters?: ProductionOrderFilters): Promise<ProductionOrder[]> => {
+    const params = new URLSearchParams();
+    if (filters?.vendorOrderId) params.set('vendorOrderId', filters.vendorOrderId.toString());
+    if (filters?.status) params.set('status', filters.status);
+    
+    const query = params.toString();
+    const res = await fetchApi<{ data: ProductionOrder[] }>(
+      FACTORY_API_BASE_URL,
+      `/v1/production-orders${query ? `?${query}` : ''}`
+    );
+    return res.data;
+  },
+
+  getById: async (id: number): Promise<ProductionOrder> => {
+    const res = await fetchApi<{ data: ProductionOrder }>(FACTORY_API_BASE_URL, `/v1/production-orders/${id}`);
+    return res.data;
+  },
+
+  update: async (id: number, data: UpdateProductionOrderInput): Promise<ProductionOrder> => {
+    const res = await fetchApi<{ data: ProductionOrder }>(FACTORY_API_BASE_URL, `/v1/production-orders/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
+    return res.data;
+  },
+};
+

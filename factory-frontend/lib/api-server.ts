@@ -13,6 +13,9 @@ import {
   ItemAttribute,
   CreateAttributeInput,
   UpdateAttributeInput,
+  ProductionOrder,
+  UpdateProductionOrderInput,
+  ProductionOrderFilters,
   User,
 } from './api';
 
@@ -86,6 +89,9 @@ export type {
   ItemAttribute,
   CreateAttributeInput,
   UpdateAttributeInput,
+  ProductionOrder,
+  UpdateProductionOrderInput,
+  ProductionOrderFilters,
   User,
 } from './api';
 
@@ -175,6 +181,35 @@ export const attributesApi = {
     return fetchApi<{ message: string; data: ItemAttribute }>(`/v1/attributes/${id}`, {
       method: 'DELETE',
     });
+  },
+};
+
+// ==================== PRODUCTION ORDERS ====================
+
+export const productionOrdersApi = {
+  getAll: async (filters?: ProductionOrderFilters): Promise<ProductionOrder[]> => {
+    const params = new URLSearchParams();
+    if (filters?.vendorOrderId) params.set('vendorOrderId', filters.vendorOrderId.toString());
+    if (filters?.status) params.set('status', filters.status);
+    
+    const query = params.toString();
+    const res = await fetchApi<{ data: ProductionOrder[] }>(
+      `/v1/production-orders${query ? `?${query}` : ''}`
+    );
+    return res.data;
+  },
+
+  getById: async (id: number): Promise<ProductionOrder> => {
+    const res = await fetchApi<{ data: ProductionOrder }>(`/v1/production-orders/${id}`);
+    return res.data;
+  },
+
+  update: async (id: number, data: UpdateProductionOrderInput): Promise<ProductionOrder> => {
+    const res = await fetchApi<{ data: ProductionOrder }>(`/v1/production-orders/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data),
+    });
+    return res.data;
   },
 };
 

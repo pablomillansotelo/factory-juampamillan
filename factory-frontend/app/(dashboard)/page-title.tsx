@@ -8,6 +8,7 @@ export function PageTitle() {
   const pageTitles: Record<string, string> = {
     '/': 'Home',
     '/internal-items': 'Items Internos',
+    '/production-orders': 'Órdenes de Producción',
     '/users': 'Usuarios',
     '/settings': 'Configuración'
   };

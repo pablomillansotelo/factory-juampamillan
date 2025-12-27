@@ -22,6 +22,16 @@ CREATE TABLE IF NOT EXISTS "production_orders" (
 );
 
 --> statement-breakpoint
+DO $$
+BEGIN
+  IF NOT EXISTS (
+    SELECT 1 FROM information_schema.table_constraints
+    WHERE constraint_name = 'production_orders_internal_item_id_internal_items_id_fk'
+  ) THEN
+    ALTER TABLE "production_orders" ADD CONSTRAINT "production_orders_internal_item_id_internal_items_id_fk" FOREIGN KEY ("internal_item_id") REFERENCES "internal_items"("id") ON DELETE cascade ON UPDATE no action;
+  END IF;
+END $$;
+--> statement-breakpoint
 CREATE INDEX IF NOT EXISTS "idx_production_orders_vendor_order_id" ON "production_orders" ("vendor_order_id");
 --> statement-breakpoint
 CREATE INDEX IF NOT EXISTS "idx_production_orders_internal_item_id" ON "production_orders" ("internal_item_id");

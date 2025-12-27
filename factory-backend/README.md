@@ -7,6 +7,8 @@ Backend del módulo **Factory** (catálogo interno de manufactura).
 ### Incluye
 - Catálogo interno (internal items)
 - Atributos de manufactura (propiedades técnicas)
+- Disponibilidad de producción (status simple)
+- BOM/components (placeholder ligero)
 - Endpoints de lectura para Inventory
 
 ### No incluye
@@ -18,8 +20,14 @@ Backend del módulo **Factory** (catálogo interno de manufactura).
 ## Roadmap (alto nivel)
 
 ### MVP
-- `GET /v1/internal-items`
-- `GET /v1/internal-items/:internalItemId`
+- Catálogo interno: `GET/POST/PUT/DELETE /v1/internal-items`
+- Atributos: `GET/POST/PUT/DELETE /v1/attributes`
+- Disponibilidad: `GET/POST/PUT/DELETE /v1/availability`
+- BOM: `GET/POST/PUT/DELETE /v1/bom`
 - API keys + rate limiting
+
+### Integraciones
+- Audit a Permit en fallos y mutaciones
+- Validación de items al crear disponibilidad/BOM
 
 

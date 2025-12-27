@@ -87,6 +87,8 @@ app
           { name: 'api-keys', description: 'Gestión de API keys' },
           { name: 'internal-items', description: 'Catálogo interno' },
           { name: 'attributes', description: 'Atributos de manufactura' },
+          { name: 'availability', description: 'Disponibilidad de producción' },
+          { name: 'bom', description: 'Componentes/BOM (placeholder)' },
         ],
         servers: [{ url: 'http://localhost:8000', description: 'Servidor de desarrollo' }],
       },

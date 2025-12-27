@@ -89,6 +89,7 @@ app
           { name: 'attributes', description: 'Atributos de manufactura' },
           { name: 'availability', description: 'Disponibilidad de producción' },
           { name: 'bom', description: 'Componentes/BOM (placeholder)' },
+          { name: 'production-orders', description: 'Órdenes de producción' },
         ],
         servers: [{ url: 'http://localhost:8000', description: 'Servidor de desarrollo' }],
       },
